@@ -1,0 +1,12 @@
+C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\drivers/fsl_common_arm.h:225:20:_SDK_AtomicLocalClearAndSet4Byte	48	static
+C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\drivers/fsl_clock.h:1298:20:CLOCK_ControlGate	32	static
+C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\drivers/fsl_clock.h:1315:20:CLOCK_EnableClock	16	static
+C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\drivers/fsl_iomuxc.h:859:20:IOMUXC_SetPinMux	24	static
+../board/pin_mux.c:172:6:BOARD_InitBootPins	8	static
+../board/pin_mux.c:193:6:BOARD_InitPins	16	static
+../board/pin_mux.c:216:6:BOARD_InitDEBUG_UARTPins	16	static
+../board/pin_mux.c:277:6:BOARD_InitSDRAMPins	16	static
+../board/pin_mux.c:338:6:BOARD_InitCANPins	16	static
+../board/pin_mux.c:371:6:BOARD_InitENETPins	16	static
+../board/pin_mux.c:409:6:BOARD_InitUSDHCPins	16	static
+../board/pin_mux.c:441:6:BOARD_InitQSPIPins	16	static
