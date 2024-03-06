@@ -6,17 +6,20 @@
 C_SRCS += \
 ../source/MIMXRT1021_I2C_Test.c \
 ../source/semihost_hardfault.c \
-../source/sht30.c 
+../source/sht30.c \
+../source/st7735s.c 
 
 C_DEPS += \
 ./source/MIMXRT1021_I2C_Test.d \
 ./source/semihost_hardfault.d \
-./source/sht30.d 
+./source/sht30.d \
+./source/st7735s.d 
 
 OBJS += \
 ./source/MIMXRT1021_I2C_Test.o \
 ./source/semihost_hardfault.o \
-./source/sht30.o 
+./source/sht30.o \
+./source/st7735s.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -31,7 +34,7 @@ source/%.o: ../source/%.c source/subdir.mk
 clean: clean-source
 
 clean-source:
-	-$(RM) ./source/MIMXRT1021_I2C_Test.d ./source/MIMXRT1021_I2C_Test.o ./source/semihost_hardfault.d ./source/semihost_hardfault.o ./source/sht30.d ./source/sht30.o
+	-$(RM) ./source/MIMXRT1021_I2C_Test.d ./source/MIMXRT1021_I2C_Test.o ./source/semihost_hardfault.d ./source/semihost_hardfault.o ./source/sht30.d ./source/sht30.o ./source/st7735s.d ./source/st7735s.o
 
 .PHONY: clean-source
 

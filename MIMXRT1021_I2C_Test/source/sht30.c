@@ -18,6 +18,7 @@ static unsigned char    SHT30_Send_Cmd(SHT30_CMD cmd)
     cmd_buffer[0] = cmd >> 8;
     cmd_buffer[1] = cmd;
   //  return HAL_I2C_Master_Transmit(&hi2c1, SHT30_ADDR_WRITE, (uint8_t* cmd_buffer, 2, 0xFFFF);
+    return 0;//need function
 }
 /**
  * @brief    复位SHT30
@@ -48,6 +49,7 @@ uint8_t SHT30_Read_Dat(uint8_t* dat)
 {
     SHT30_Send_Cmd(READOUT_FOR_PERIODIC_MODE);
    // return HAL_I2C_Master_Receive(&hi2c1, SHT30_ADDR_READ, dat, 6, 0xFFFF);
+    return 0;//need function
 }
 #define CRC8_POLYNOMIAL 0x31
 
