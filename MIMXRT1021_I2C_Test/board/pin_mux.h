@@ -65,6 +65,143 @@ void BOARD_InitBootPins(void);
 #define BOARD_INITPINS_u_tem1_PIN                                             1U   /*!< PORT pin number */
 #define BOARD_INITPINS_u_tem1_PIN_MASK                                (1U << 1U)   /*!< PORT pin mask */
 
+/* GPIO_EMC_31 (number 125), SEMC_DM1/U14[39] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SEMC_DM1_PERIPHERAL                                 GPIO2   /*!< Peripheral name */
+#define BOARD_INITPINS_SEMC_DM1_SIGNAL                                   gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_SEMC_DM1_CHANNEL                                      31U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_SEMC_DM1_GPIO                                       GPIO2   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_SEMC_DM1_GPIO_PIN                                     31U   /*!< GPIO pin number */
+#define BOARD_INITPINS_SEMC_DM1_GPIO_PIN_MASK                        (1U << 31U)   /*!< GPIO pin mask */
+#define BOARD_INITPINS_SEMC_DM1_PORT                                       GPIO2   /*!< PORT peripheral base pointer */
+#define BOARD_INITPINS_SEMC_DM1_PIN                                          31U   /*!< PORT pin number */
+#define BOARD_INITPINS_SEMC_DM1_PIN_MASK                             (1U << 31U)   /*!< PORT pin mask */
+
+/* GPIO_EMC_32 (number 124), SEMC_D8/U14[42] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SEMC_D8_PERIPHERAL                                  GPIO3   /*!< Peripheral name */
+#define BOARD_INITPINS_SEMC_D8_SIGNAL                                    gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_SEMC_D8_CHANNEL                                        0U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_SEMC_D8_GPIO                                        GPIO3   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_SEMC_D8_GPIO_PIN                                       0U   /*!< GPIO pin number */
+#define BOARD_INITPINS_SEMC_D8_GPIO_PIN_MASK                          (1U << 0U)   /*!< GPIO pin mask */
+#define BOARD_INITPINS_SEMC_D8_PORT                                        GPIO3   /*!< PORT peripheral base pointer */
+#define BOARD_INITPINS_SEMC_D8_PIN                                            0U   /*!< PORT pin number */
+#define BOARD_INITPINS_SEMC_D8_PIN_MASK                               (1U << 0U)   /*!< PORT pin mask */
+
+/* GPIO_EMC_33 (number 123), SEMC_D9/U14[44] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SEMC_D9_PERIPHERAL                                  GPIO3   /*!< Peripheral name */
+#define BOARD_INITPINS_SEMC_D9_SIGNAL                                    gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_SEMC_D9_CHANNEL                                        1U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_SEMC_D9_GPIO                                        GPIO3   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_SEMC_D9_GPIO_PIN                                       1U   /*!< GPIO pin number */
+#define BOARD_INITPINS_SEMC_D9_GPIO_PIN_MASK                          (1U << 1U)   /*!< GPIO pin mask */
+#define BOARD_INITPINS_SEMC_D9_PORT                                        GPIO3   /*!< PORT peripheral base pointer */
+#define BOARD_INITPINS_SEMC_D9_PIN                                            1U   /*!< PORT pin number */
+#define BOARD_INITPINS_SEMC_D9_PIN_MASK                               (1U << 1U)   /*!< PORT pin mask */
+
+/* GPIO_EMC_34 (number 122), SEMC_D10/U14[45] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SEMC_D10_PERIPHERAL                                 GPIO3   /*!< Peripheral name */
+#define BOARD_INITPINS_SEMC_D10_SIGNAL                                   gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_SEMC_D10_CHANNEL                                       2U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_SEMC_D10_GPIO                                       GPIO3   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_SEMC_D10_GPIO_PIN                                      2U   /*!< GPIO pin number */
+#define BOARD_INITPINS_SEMC_D10_GPIO_PIN_MASK                         (1U << 2U)   /*!< GPIO pin mask */
+#define BOARD_INITPINS_SEMC_D10_PORT                                       GPIO3   /*!< PORT peripheral base pointer */
+#define BOARD_INITPINS_SEMC_D10_PIN                                           2U   /*!< PORT pin number */
+#define BOARD_INITPINS_SEMC_D10_PIN_MASK                              (1U << 2U)   /*!< PORT pin mask */
+
+/* GPIO_EMC_35 (number 121), SEMC_D11/U14[47] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SEMC_D11_PERIPHERAL                                 GPIO3   /*!< Peripheral name */
+#define BOARD_INITPINS_SEMC_D11_SIGNAL                                   gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_SEMC_D11_CHANNEL                                       3U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_SEMC_D11_GPIO                                       GPIO3   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_SEMC_D11_GPIO_PIN                                      3U   /*!< GPIO pin number */
+#define BOARD_INITPINS_SEMC_D11_GPIO_PIN_MASK                         (1U << 3U)   /*!< GPIO pin mask */
+#define BOARD_INITPINS_SEMC_D11_PORT                                       GPIO3   /*!< PORT peripheral base pointer */
+#define BOARD_INITPINS_SEMC_D11_PIN                                           3U   /*!< PORT pin number */
+#define BOARD_INITPINS_SEMC_D11_PIN_MASK                              (1U << 3U)   /*!< PORT pin mask */
+
+/* GPIO_EMC_36 (number 120), SEMC_D12/U14[48] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SEMC_D12_PERIPHERAL                                 GPIO3   /*!< Peripheral name */
+#define BOARD_INITPINS_SEMC_D12_SIGNAL                                   gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_SEMC_D12_CHANNEL                                       4U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_SEMC_D12_GPIO                                       GPIO3   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_SEMC_D12_GPIO_PIN                                      4U   /*!< GPIO pin number */
+#define BOARD_INITPINS_SEMC_D12_GPIO_PIN_MASK                         (1U << 4U)   /*!< GPIO pin mask */
+#define BOARD_INITPINS_SEMC_D12_PORT                                       GPIO3   /*!< PORT peripheral base pointer */
+#define BOARD_INITPINS_SEMC_D12_PIN                                           4U   /*!< PORT pin number */
+#define BOARD_INITPINS_SEMC_D12_PIN_MASK                              (1U << 4U)   /*!< PORT pin mask */
+
+/* GPIO_EMC_37 (number 119), SEMC_D13/U14[50] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SEMC_D13_PERIPHERAL                                 GPIO3   /*!< Peripheral name */
+#define BOARD_INITPINS_SEMC_D13_SIGNAL                                   gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_SEMC_D13_CHANNEL                                       5U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_SEMC_D13_GPIO                                       GPIO3   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_SEMC_D13_GPIO_PIN                                      5U   /*!< GPIO pin number */
+#define BOARD_INITPINS_SEMC_D13_GPIO_PIN_MASK                         (1U << 5U)   /*!< GPIO pin mask */
+#define BOARD_INITPINS_SEMC_D13_PORT                                       GPIO3   /*!< PORT peripheral base pointer */
+#define BOARD_INITPINS_SEMC_D13_PIN                                           5U   /*!< PORT pin number */
+#define BOARD_INITPINS_SEMC_D13_PIN_MASK                              (1U << 5U)   /*!< PORT pin mask */
+
+/* GPIO_EMC_29 (number 127), SEMC_CKE/U14[37] */
+/* Routed pin properties */
+#define BOARD_INITPINS_U_Re0_PERIPHERAL                                    GPIO2   /*!< Peripheral name */
+#define BOARD_INITPINS_U_Re0_SIGNAL                                      gpio_io   /*!< Signal name */
+#define BOARD_INITPINS_U_Re0_CHANNEL                                         29U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_U_Re0_GPIO                                          GPIO2   /*!< GPIO peripheral base pointer */
+#define BOARD_INITPINS_U_Re0_GPIO_PIN                                        29U   /*!< GPIO pin number */
+#define BOARD_INITPINS_U_Re0_GPIO_PIN_MASK                           (1U << 29U)   /*!< GPIO pin mask */
+#define BOARD_INITPINS_U_Re0_PORT                                          GPIO2   /*!< PORT peripheral base pointer */
+#define BOARD_INITPINS_U_Re0_PIN                                             29U   /*!< PORT pin number */
+#define BOARD_INITPINS_U_Re0_PIN_MASK                                (1U << 29U)   /*!< PORT pin mask */
+
+/* GPIO_EMC_10 (number 7), SEMC_CAS/U14[17] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SEMC_CAS_PERIPHERAL                                LPSPI2   /*!< Peripheral name */
+#define BOARD_INITPINS_SEMC_CAS_SIGNAL                                       SCK   /*!< Signal name */
+
+/* GPIO_EMC_11 (number 4), SEMC_RAS/U14[18] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SEMC_RAS_PERIPHERAL                                LPSPI2   /*!< Peripheral name */
+#define BOARD_INITPINS_SEMC_RAS_SIGNAL                                      PCS0   /*!< Signal name */
+
+/* GPIO_EMC_12 (number 3), SEMC_CS0/U14[19] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SEMC_CS0_PERIPHERAL                                LPSPI2   /*!< Peripheral name */
+#define BOARD_INITPINS_SEMC_CS0_SIGNAL                                       SDO   /*!< Signal name */
+
+/* GPIO_EMC_13 (number 2), SEMC_BA0/U14[20] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SEMC_BA0_PERIPHERAL                                LPSPI2   /*!< Peripheral name */
+#define BOARD_INITPINS_SEMC_BA0_SIGNAL                                       SDI   /*!< Signal name */
+
+/* GPIO_EMC_14 (number 1), SEMC_BA1/U14[21] */
+/* Routed pin properties */
+#define BOARD_INITPINS_SEMC_BA1_PERIPHERAL                                LPSPI2   /*!< Peripheral name */
+#define BOARD_INITPINS_SEMC_BA1_SIGNAL                                      PCS1   /*!< Signal name */
+
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

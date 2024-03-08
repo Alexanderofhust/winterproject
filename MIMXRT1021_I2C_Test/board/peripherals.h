@@ -10,10 +10,53 @@
  * Included files
  **********************************************************************************************************************/
 #include "fsl_common.h"
+#include "fsl_lpspi_cmsis.h"
+#include "fsl_semc.h"
+#include "fsl_clock.h"
+#include "fsl_lpi2c.h"
 
 #if defined(__cplusplus)
 extern "C" {
 #endif /* __cplusplus */
+
+/***********************************************************************************************************************
+ * Definitions
+ **********************************************************************************************************************/
+/* Definitions for BOARD_InitPeripherals functional group */
+/* Definition of peripheral ID */
+#define LPSPI2_PERIPHERAL Driver_SPI2
+/* Definition of the clock source frequency */
+#define LPSPI2_CLOCK_SOURCE_FREQ 105600000UL
+/* BOARD_InitPeripherals defines for SEMC */
+/* Definition of peripheral ID. */
+#define SEMC_PERIPHERAL SEMC
+/* BOARD_InitPeripherals defines for LPI2C1 */
+/* Definition of peripheral ID */
+#define LPI2C1_PERIPHERAL LPI2C1
+/* Definition of clock source */
+#define LPI2C1_CLOCK_FREQ 60000000UL
+/* Transfer buffer size */
+#define LPI2C1_MASTER_BUFFER_SIZE 1
+/* Definition of slave address */
+#define LPI2C1_MASTER_SLAVE_ADDRESS 0
+
+/***********************************************************************************************************************
+ * Global variables
+ **********************************************************************************************************************/
+extern semc_config_t SEMC_config;
+extern semc_sdram_config_t SEMC_sdram_struct;
+extern const lpi2c_master_config_t LPI2C1_masterConfig;
+extern lpi2c_master_transfer_t LPI2C1_masterTransfer;
+extern uint8_t LPI2C1_masterBuffer[LPI2C1_MASTER_BUFFER_SIZE];
+extern lpi2c_master_handle_t LPI2C1_masterHandle;
+
+/***********************************************************************************************************************
+ * Global functions
+ **********************************************************************************************************************/
+/* Signal event function for component LPSPI2*/
+extern void LPSPI2_SignalEvent(uint32_t event);
+/* Get clock source frequency function for component LPSPI2 */
+uint32_t LPSPI2_GetFreq(void);
 
 /***********************************************************************************************************************
  * Initialization functions

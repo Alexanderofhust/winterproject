@@ -69,7 +69,8 @@ instance:
 - peripheral: 'NVIC'
 - config_sets:
   - nvic:
-    - interrupt_table: []
+    - interrupt_table:
+      - 0: []
     - interrupts: []
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
@@ -79,11 +80,289 @@ static void NVIC_init(void) {
 } */
 
 /***********************************************************************************************************************
+ * LPSPI2 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'LPSPI2'
+- type: 'lpspi_cmsis'
+- mode: 'interrupt'
+- custom_name_enabled: 'false'
+- type_id: 'lpspi_cmsis_20c8e626b665b1f41c2023229558fbf2'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'LPSPI2'
+- config_sets:
+  - general:
+    - main_config:
+      - spi_mode_user: 'ARM_SPI_MODE_MASTER'
+      - clockSource: 'LpspiClock'
+      - clockSourceFreq: 'ClocksTool_DefaultInit'
+      - clock_polarity: 'ARM_SPI_CPOL0_CPHA0'
+      - power_state: 'ARM_POWER_FULL'
+      - baudRate_Bps: '500000'
+      - data_bits: '8'
+      - bit_format: 'ARM_SPI_MSB_LSB'
+      - typeControlMaster: 'ARM_SPI_SS_MASTER_HW_OUTPUT'
+      - defaultValueInt: '0'
+      - spi_chip_select: 'PCS1'
+      - pcsToSckDelayInNanoSec: '0'
+      - lastSckToPcsDelayInNanoSec: '0'
+      - betweenTransferDelayInNanoSec: '0'
+      - signalEventFunctionId: 'LPSPI2_SignalEvent'
+      - enableGetFreqFnCustomName: 'false'
+      - getFreqFunctionCustomID: 'LPSPI2_GetFreq'
+      - enableInitPinsFnCustomName: 'false'
+      - initPinFunctionCustomID: 'LPSPI2_InitPins'
+      - enableDeinitPinsFnCustomName: 'false'
+      - deinitPinFunctionCustomID: 'LPSPI2_DeinitPins'
+  - fsl_spi:
+    - interrupt:
+      - IRQn: 'LPSPI2_IRQn'
+      - enable_priority: 'false'
+      - priority: '0'
+    - quick_selection: 'default_edma'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+/* Get clock source frequency */
+uint32_t LPSPI2_GetFreq(void){
+  return LPSPI2_CLOCK_SOURCE_FREQ;
+};
+
+static void LPSPI2_init(void) {
+  /* Initialize CMSIS SPI */
+  LPSPI2_PERIPHERAL.Initialize(LPSPI2_SignalEvent);
+  /* Power control of CMSIS SPI */
+  LPSPI2_PERIPHERAL.PowerControl(ARM_POWER_FULL);
+  /* Control of CMSIS SPI */
+  LPSPI2_PERIPHERAL.Control(ARM_SPI_MODE_MASTER | ARM_SPI_CPOL0_CPHA0 | ARM_SPI_DATA_BITS(8) | ARM_SPI_MSB_LSB | ARM_SPI_SS_MASTER_HW_OUTPUT, 500000);
+  /* Control of CMSIS SPI */
+  LPSPI2_PERIPHERAL.Control(ARM_SPI_SET_DEFAULT_TX_VALUE, 0);
+}
+
+/***********************************************************************************************************************
+ * SEMC initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'SEMC'
+- type: 'semc'
+- mode: 'general'
+- custom_name_enabled: 'false'
+- type_id: 'semc_2ce25319b5fdd69da4530077fbf19124'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'SEMC'
+- config_sets:
+  - fsl_semc:
+    - enableDCD: 'false'
+    - clockConfig:
+      - clockSource: 'kSEMC_ClkSrcPeri'
+      - clockSourceFreq: 'ClocksTool_DefaultInit'
+    - semc_config_t:
+      - dqsMode: 'kSEMC_Loopbackdqspad'
+      - cmdTimeoutCycles: '0'
+      - busTimeoutCycles: '0'
+      - queueWeight:
+        - queueaEnable: 'false'
+        - queueaWeight:
+          - structORvalue: 'structure'
+          - queueaConfig:
+            - qos: '0'
+            - aging: '0'
+            - slaveHitNoswitch: '0'
+            - slaveHitSwitch: '0'
+        - queuebEnable: 'false'
+        - queuebWeight:
+          - structORvalue: 'structure'
+          - queuebConfig:
+            - qos: '0'
+            - aging: '0'
+            - weightPagehit: '0'
+            - slaveHitNoswitch: '0'
+            - bankRotation: '0'
+    - semc_sdram_config_t:
+      - csxPinMux: 'kSEMC_MUXCSX0'
+      - semcSdramCs: 'kSEMC_SDRAM_CS0'
+      - address: '0x80000000'
+      - memsize_input: '32KB'
+      - portSize: 'kSEMC_PortSize16Bit'
+      - burstLen: 'kSEMC_Sdram_BurstLen1'
+      - columnAddrBitNum: 'kSEMC_SdramColunm_9bit'
+      - casLatency: 'kSEMC_LatencyThree'
+      - tPrecharge2Act_Ns: '18'
+      - tAct2ReadWrite_Ns: '18'
+      - tRefreshRecovery_Ns: '127'
+      - tWriteRecovery_Ns: '12'
+      - tCkeOff_Ns: '42'
+      - tAct2Prechage_Ns: '42'
+      - tSelfRefRecovery_Ns: '67'
+      - tRefresh2Refresh_Ns: '60'
+      - tAct2Act_Ns: '60'
+      - tPrescalePeriod_Ns: '160'
+      - tIdleTimeout_Ns: '0'
+      - refreshPeriod_nsPerRow: '64'
+      - refreshUrgThreshold: '64'
+      - refreshBurstLen: '1'
+      - autofreshTimesEnum: '0'
+    - sdramArray: []
+    - quick_selection: 'SEMC_Type'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+semc_config_t SEMC_config = {
+  .dqsMode = kSEMC_Loopbackdqspad,
+  .cmdTimeoutCycles = 0U,
+  .busTimeoutCycles = 0U,
+  .queueWeight = {
+    .queueaEnable = false,
+    .queueaWeight = {
+      .queueaConfig = {
+        .qos = 0UL,
+        .aging = 0UL,
+        .slaveHitNoswitch = 0UL,
+        .slaveHitSwitch = 0UL
+      },
+    },
+    .queuebEnable = false,
+    .queuebWeight = {
+      .queuebConfig = {
+        .qos = 0UL,
+        .aging = 0UL,
+        .weightPagehit = 0UL,
+        .slaveHitNoswitch = 0UL,
+        .bankRotation = 0UL
+      },
+    }
+  }
+};
+semc_sdram_config_t SEMC_sdram_struct = {
+  .csxPinMux = kSEMC_MUXCSX0,
+  .address = 0x80000000UL,
+  .memsize_kbytes = 32,
+  .portSize = kSEMC_PortSize16Bit,
+  .burstLen = kSEMC_Sdram_BurstLen1,
+  .columnAddrBitNum = kSEMC_SdramColunm_9bit,
+  .casLatency = kSEMC_LatencyThree,
+  .tPrecharge2Act_Ns = 18U,
+  .tAct2ReadWrite_Ns = 18U,
+  .tRefreshRecovery_Ns = 127U,
+  .tWriteRecovery_Ns = 12U,
+  .tCkeOff_Ns = 42U,
+  .tAct2Prechage_Ns = 42U,
+  .tSelfRefRecovery_Ns = 67U,
+  .tRefresh2Refresh_Ns = 60U,
+  .tAct2Act_Ns = 60U,
+  .tPrescalePeriod_Ns = 160UL,
+  .tIdleTimeout_Ns = 0UL,
+  .refreshPeriod_nsPerRow = 64UL,
+  .refreshUrgThreshold = 64UL,
+  .refreshBurstLen = 1U,
+  .autofreshTimes = 0U
+};
+
+static void SEMC_init(void) {
+  /* Initialize SEMC peripheral. */
+  SEMC_Init(SEMC_PERIPHERAL, &SEMC_config);
+  /* Initialize SEMC SDRAM. */
+  SEMC_ConfigureSDRAM(SEMC_PERIPHERAL, kSEMC_SDRAM_CS0, &SEMC_sdram_struct, 62500000);
+}
+
+/***********************************************************************************************************************
+ * LPI2C1 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'LPI2C1'
+- type: 'lpi2c'
+- mode: 'master'
+- custom_name_enabled: 'false'
+- type_id: 'lpi2c_6b71962515c3208facfccd030afebc98'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'LPI2C1'
+- config_sets:
+  - main:
+    - clockSource: 'Lpi2cClock'
+    - clockSourceFreq: 'ClocksTool_DefaultInit'
+  - interrupt_vector: []
+  - master:
+    - mode: 'transfer'
+    - config:
+      - enableMaster: 'true'
+      - enableDoze: 'true'
+      - debugEnable: 'false'
+      - ignoreAck: 'false'
+      - pinConfig: 'kLPI2C_2PinOpenDrain'
+      - baudRate_Hz: '100000'
+      - busIdleTimeout_ns: '0'
+      - pinLowTimeout_ns: '0'
+      - sdaGlitchFilterWidth_ns: '0'
+      - sclGlitchFilterWidth_ns: '0'
+      - hostRequest:
+        - enable: 'false'
+        - source: 'kLPI2C_HostRequestExternalPin'
+        - polarity: 'kLPI2C_HostRequestPinActiveHigh'
+      - edmaRequestSources: ''
+    - transfer:
+      - blocking: 'false'
+      - enable_custom_handle: 'false'
+      - callback:
+        - name: ''
+        - userData: ''
+      - flags: ''
+      - slaveAddress: '0'
+      - direction: 'kLPI2C_Write'
+      - subaddress: '0'
+      - subaddressSize: '1'
+      - blocking_buffer: 'false'
+      - enable_custom_buffer: 'false'
+      - dataSize: '1'
+    - quick_selection: 'qs_master_transfer'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const lpi2c_master_config_t LPI2C1_masterConfig = {
+  .enableMaster = true,
+  .enableDoze = true,
+  .debugEnable = false,
+  .ignoreAck = false,
+  .pinConfig = kLPI2C_2PinOpenDrain,
+  .baudRate_Hz = 100000UL,
+  .busIdleTimeout_ns = 0UL,
+  .pinLowTimeout_ns = 0UL,
+  .sdaGlitchFilterWidth_ns = 0U,
+  .sclGlitchFilterWidth_ns = 0U,
+  .hostRequest = {
+    .enable = false,
+    .source = kLPI2C_HostRequestExternalPin,
+    .polarity = kLPI2C_HostRequestPinActiveHigh
+  }
+};
+lpi2c_master_transfer_t LPI2C1_masterTransfer = {
+  .flags = kLPI2C_TransferDefaultFlag,
+  .slaveAddress = 0,
+  .direction = kLPI2C_Write,
+  .subaddress = 0,
+  .subaddressSize = 1,
+  .data = LPI2C1_masterBuffer,
+  .dataSize = 1
+};
+lpi2c_master_handle_t LPI2C1_masterHandle;
+uint8_t LPI2C1_masterBuffer[LPI2C1_MASTER_BUFFER_SIZE];
+
+static void LPI2C1_init(void) {
+  LPI2C_MasterInit(LPI2C1_PERIPHERAL, &LPI2C1_masterConfig, LPI2C1_CLOCK_FREQ);
+  LPI2C_MasterTransferCreateHandle(LPI2C1_PERIPHERAL, &LPI2C1_masterHandle, NULL, NULL);
+}
+
+/***********************************************************************************************************************
  * Initialization functions
  **********************************************************************************************************************/
 void BOARD_InitPeripherals(void)
 {
   /* Initialize components */
+  LPSPI2_init();
+  SEMC_init();
+  LPI2C1_init();
 }
 
 /***********************************************************************************************************************

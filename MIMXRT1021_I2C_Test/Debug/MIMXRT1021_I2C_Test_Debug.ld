@@ -5,7 +5,7 @@
  * Generated linker script file for MIMXRT1021xxxxx
  * Created from linkscript.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.30
- * MCUXpresso IDE v11.9.0 [Build 2144] [2024-01-05] on 2024年3月6日 下午4:20:46
+ * MCUXpresso IDE v11.9.0 [Build 2144] [2024-01-05] on 2024年3月8日 下午10:03:12
  */
 
 INCLUDE "MIMXRT1021_I2C_Test_Debug_library.ld"
