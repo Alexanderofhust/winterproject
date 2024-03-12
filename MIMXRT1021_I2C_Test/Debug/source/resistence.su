@@ -1,1 +1,6 @@
-../source/resistence.c:9:6:Resistence_Init	4	static
+C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\drivers/fsl_gpio.h:112:20:GPIO_PortSet	16	static
+C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\drivers/fsl_gpio.h:136:20:GPIO_PortClear	16	static
+../source/resistence.c:12:6:Resistence_Init	8	static
+../source/resistence.c:17:6:Resistence_Set	8	static
+../source/resistence.c:22:6:Resistence_Clear	8	static
+../source/resistence.c:27:5:Resistence_Status	16	static

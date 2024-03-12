@@ -202,6 +202,16 @@ void BOARD_InitBootPins(void);
 #define BOARD_INITPINS_SEMC_BA1_PERIPHERAL                                LPSPI2   /*!< Peripheral name */
 #define BOARD_INITPINS_SEMC_BA1_SIGNAL                                      PCS1   /*!< Signal name */
 
+/* GPIO_EMC_03 (number 15), SEMC_D3/U14[7] */
+/* Routed pin properties */
+#define BOARD_INITPINS_U_SDA_PERIPHERAL                                   LPI2C1   /*!< Peripheral name */
+#define BOARD_INITPINS_U_SDA_SIGNAL                                          SDA   /*!< Signal name */
+
+/* GPIO_EMC_02 (number 16), SEMC_D2/U14[5] */
+/* Routed pin properties */
+#define BOARD_INITPINS_U_SCL_PERIPHERAL                                   LPI2C1   /*!< Peripheral name */
+#define BOARD_INITPINS_U_SCL_SIGNAL                                          SCL   /*!< Signal name */
+
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

@@ -7,8 +7,10 @@ C_SRCS += \
 ../drivers/fsl_clock.c \
 ../drivers/fsl_common.c \
 ../drivers/fsl_common_arm.c \
+../drivers/fsl_flexspi.c \
 ../drivers/fsl_gpio.c \
 ../drivers/fsl_lpi2c.c \
+../drivers/fsl_lpspi.c \
 ../drivers/fsl_lpspi_cmsis.c \
 ../drivers/fsl_lpuart.c \
 ../drivers/fsl_semc.c 
@@ -17,8 +19,10 @@ C_DEPS += \
 ./drivers/fsl_clock.d \
 ./drivers/fsl_common.d \
 ./drivers/fsl_common_arm.d \
+./drivers/fsl_flexspi.d \
 ./drivers/fsl_gpio.d \
 ./drivers/fsl_lpi2c.d \
+./drivers/fsl_lpspi.d \
 ./drivers/fsl_lpspi_cmsis.d \
 ./drivers/fsl_lpuart.d \
 ./drivers/fsl_semc.d 
@@ -27,8 +31,10 @@ OBJS += \
 ./drivers/fsl_clock.o \
 ./drivers/fsl_common.o \
 ./drivers/fsl_common_arm.o \
+./drivers/fsl_flexspi.o \
 ./drivers/fsl_gpio.o \
 ./drivers/fsl_lpi2c.o \
+./drivers/fsl_lpspi.o \
 ./drivers/fsl_lpspi_cmsis.o \
 ./drivers/fsl_lpuart.o \
 ./drivers/fsl_semc.o 
@@ -46,7 +52,7 @@ drivers/%.o: ../drivers/%.c drivers/subdir.mk
 clean: clean-drivers
 
 clean-drivers:
-	-$(RM) ./drivers/fsl_clock.d ./drivers/fsl_clock.o ./drivers/fsl_common.d ./drivers/fsl_common.o ./drivers/fsl_common_arm.d ./drivers/fsl_common_arm.o ./drivers/fsl_gpio.d ./drivers/fsl_gpio.o ./drivers/fsl_lpi2c.d ./drivers/fsl_lpi2c.o ./drivers/fsl_lpspi_cmsis.d ./drivers/fsl_lpspi_cmsis.o ./drivers/fsl_lpuart.d ./drivers/fsl_lpuart.o ./drivers/fsl_semc.d ./drivers/fsl_semc.o
+	-$(RM) ./drivers/fsl_clock.d ./drivers/fsl_clock.o ./drivers/fsl_common.d ./drivers/fsl_common.o ./drivers/fsl_common_arm.d ./drivers/fsl_common_arm.o ./drivers/fsl_flexspi.d ./drivers/fsl_flexspi.o ./drivers/fsl_gpio.d ./drivers/fsl_gpio.o ./drivers/fsl_lpi2c.d ./drivers/fsl_lpi2c.o ./drivers/fsl_lpspi.d ./drivers/fsl_lpspi.o ./drivers/fsl_lpspi_cmsis.d ./drivers/fsl_lpspi_cmsis.o ./drivers/fsl_lpuart.d ./drivers/fsl_lpuart.o ./drivers/fsl_semc.d ./drivers/fsl_semc.o
 
 .PHONY: clean-drivers
 

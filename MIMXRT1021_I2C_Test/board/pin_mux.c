@@ -57,8 +57,8 @@ pin_labels:
 - {pin_num: '44', pin_signal: NVCC_SD0, label: NVCC_SD}
 - {pin_num: '18', pin_signal: GPIO_EMC_00, label: 'SEMC_D0/U14[2]', identifier: SEMC_D0}
 - {pin_num: '17', pin_signal: GPIO_EMC_01, label: 'SEMC_D1/U14[4]', identifier: SEMC_D1}
-- {pin_num: '16', pin_signal: GPIO_EMC_02, label: 'SEMC_D2/U14[5]', identifier: SEMC_D2}
-- {pin_num: '15', pin_signal: GPIO_EMC_03, label: 'SEMC_D3/U14[7]', identifier: SEMC_D3}
+- {pin_num: '16', pin_signal: GPIO_EMC_02, label: 'SEMC_D2/U14[5]', identifier: SEMC_D2;U_SCL}
+- {pin_num: '15', pin_signal: GPIO_EMC_03, label: 'SEMC_D3/U14[7]', identifier: SEMC_D3;U_SDA}
 - {pin_num: '13', pin_signal: GPIO_EMC_05, label: 'SEMC_D5/U14[10]', identifier: SEMC_D5}
 - {pin_num: '12', pin_signal: GPIO_EMC_06, label: 'SEMC_D6/U14[11]', identifier: SEMC_D6}
 - {pin_num: '10', pin_signal: GPIO_EMC_07, label: 'SEMC_D7/U14[13]', identifier: SEMC_D7}
@@ -195,6 +195,8 @@ BOARD_InitPins:
   - {pin_num: '3', peripheral: LPSPI2, signal: SDO, pin_signal: GPIO_EMC_12}
   - {pin_num: '2', peripheral: LPSPI2, signal: SDI, pin_signal: GPIO_EMC_13}
   - {pin_num: '1', peripheral: LPSPI2, signal: PCS1, pin_signal: GPIO_EMC_14}
+  - {pin_num: '15', peripheral: LPI2C1, signal: SDA, pin_signal: GPIO_EMC_03, identifier: U_SDA}
+  - {pin_num: '16', peripheral: LPI2C1, signal: SCL, pin_signal: GPIO_EMC_02, identifier: U_SCL}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -280,6 +282,8 @@ void BOARD_InitPins(void) {
   /* Initialize GPIO functionality on GPIO_EMC_37 (pin 119) */
   GPIO_PinInit(GPIO3, 5U, &SEMC_D13_config);
 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_02_LPI2C1_SCL, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_03_LPI2C1_SDA, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_10_LPSPI2_SCK, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_11_LPSPI2_PCS0, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_12_LPSPI2_SDO, 0U); 
@@ -361,8 +365,8 @@ BOARD_InitSDRAMPins:
   - {pin_num: '12', peripheral: SEMC, signal: 'DATA, 06', pin_signal: GPIO_EMC_06}
   - {pin_num: '13', peripheral: SEMC, signal: 'DATA, 05', pin_signal: GPIO_EMC_05}
   - {pin_num: '14', peripheral: SEMC, signal: 'DATA, 04', pin_signal: GPIO_EMC_04}
-  - {pin_num: '15', peripheral: SEMC, signal: 'DATA, 03', pin_signal: GPIO_EMC_03}
-  - {pin_num: '16', peripheral: SEMC, signal: 'DATA, 02', pin_signal: GPIO_EMC_02}
+  - {pin_num: '15', peripheral: SEMC, signal: 'DATA, 03', pin_signal: GPIO_EMC_03, identifier: SEMC_D3}
+  - {pin_num: '16', peripheral: SEMC, signal: 'DATA, 02', pin_signal: GPIO_EMC_02, identifier: SEMC_D2}
   - {pin_num: '17', peripheral: SEMC, signal: 'DATA, 01', pin_signal: GPIO_EMC_01}
   - {pin_num: '18', peripheral: SEMC, signal: 'DATA, 00', pin_signal: GPIO_EMC_00}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********

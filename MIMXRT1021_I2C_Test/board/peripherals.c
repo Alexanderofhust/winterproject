@@ -69,8 +69,7 @@ instance:
 - peripheral: 'NVIC'
 - config_sets:
   - nvic:
-    - interrupt_table:
-      - 0: []
+    - interrupt_table: []
     - interrupts: []
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
@@ -80,64 +79,69 @@ static void NVIC_init(void) {
 } */
 
 /***********************************************************************************************************************
- * LPSPI2 initialization code
+ * LPSPI1 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 instance:
-- name: 'LPSPI2'
-- type: 'lpspi_cmsis'
-- mode: 'interrupt'
+- name: 'LPSPI1'
+- type: 'lpspi'
+- mode: 'polling'
 - custom_name_enabled: 'false'
-- type_id: 'lpspi_cmsis_20c8e626b665b1f41c2023229558fbf2'
+- type_id: 'lpspi_3b8318dca8e0034b76e041f04d445c24'
 - functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'LPSPI2'
+- peripheral: 'LPSPI1'
 - config_sets:
-  - general:
-    - main_config:
-      - spi_mode_user: 'ARM_SPI_MODE_MASTER'
-      - clockSource: 'LpspiClock'
-      - clockSourceFreq: 'ClocksTool_DefaultInit'
-      - clock_polarity: 'ARM_SPI_CPOL0_CPHA0'
-      - power_state: 'ARM_POWER_FULL'
-      - baudRate_Bps: '500000'
-      - data_bits: '8'
-      - bit_format: 'ARM_SPI_MSB_LSB'
-      - typeControlMaster: 'ARM_SPI_SS_MASTER_HW_OUTPUT'
-      - defaultValueInt: '0'
-      - spi_chip_select: 'PCS1'
-      - pcsToSckDelayInNanoSec: '0'
-      - lastSckToPcsDelayInNanoSec: '0'
-      - betweenTransferDelayInNanoSec: '0'
-      - signalEventFunctionId: 'LPSPI2_SignalEvent'
-      - enableGetFreqFnCustomName: 'false'
-      - getFreqFunctionCustomID: 'LPSPI2_GetFreq'
-      - enableInitPinsFnCustomName: 'false'
-      - initPinFunctionCustomID: 'LPSPI2_InitPins'
-      - enableDeinitPinsFnCustomName: 'false'
-      - deinitPinFunctionCustomID: 'LPSPI2_DeinitPins'
-  - fsl_spi:
-    - interrupt:
-      - IRQn: 'LPSPI2_IRQn'
-      - enable_priority: 'false'
-      - priority: '0'
-    - quick_selection: 'default_edma'
+  - main:
+    - mode: 'kLPSPI_Master'
+    - clockSource: 'LpspiClock'
+    - clockSourceFreq: 'ClocksTool_DefaultInit'
+    - master:
+      - baudRate: '500000'
+      - bitsPerFrame: '8'
+      - cpol: 'kLPSPI_ClockPolarityActiveHigh'
+      - cpha: 'kLPSPI_ClockPhaseFirstEdge'
+      - direction: 'kLPSPI_MsbFirst'
+      - pcsToSckDelayInNanoSec: '1000'
+      - lastSckToPcsDelayInNanoSec: '1000'
+      - betweenTransferDelayInNanoSec: '1000'
+      - whichPcs: 'kLPSPI_Pcs0'
+      - pcsActiveHighOrLow: 'kLPSPI_PcsActiveLow'
+      - pinCfg: 'kLPSPI_SdiInSdoOut'
+      - pcsFunc: 'kLPSPI_PcsAsCs'
+      - dataOutConfig: 'kLpspiDataOutRetained'
+      - enableInputDelay: 'false'
+    - set_FifoWaterMarks: 'false'
+    - fifoWaterMarks:
+      - txWatermark: '0'
+      - rxWatermark: '0'
+    - allPcsPolarityEnable: 'false'
+    - allPcsPolarity:
+      - kLPSPI_Pcs1Active: 'kLPSPI_PcsActiveLow'
+      - kLPSPI_Pcs2Active: 'kLPSPI_PcsActiveLow'
+      - kLPSPI_Pcs3Active: 'kLPSPI_PcsActiveLow'
+    - quick_selection: 'qs_master'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
-/* Get clock source frequency */
-uint32_t LPSPI2_GetFreq(void){
-  return LPSPI2_CLOCK_SOURCE_FREQ;
+const lpspi_master_config_t LPSPI1_config = {
+  .baudRate = 500000UL,
+  .bitsPerFrame = 8UL,
+  .cpol = kLPSPI_ClockPolarityActiveHigh,
+  .cpha = kLPSPI_ClockPhaseFirstEdge,
+  .direction = kLPSPI_MsbFirst,
+  .pcsToSckDelayInNanoSec = 1000UL,
+  .lastSckToPcsDelayInNanoSec = 1000UL,
+  .betweenTransferDelayInNanoSec = 1000UL,
+  .whichPcs = kLPSPI_Pcs0,
+  .pcsActiveHighOrLow = kLPSPI_PcsActiveLow,
+  .pinCfg = kLPSPI_SdiInSdoOut,
+  .pcsFunc = kLPSPI_PcsAsCs,
+  .dataOutConfig = kLpspiDataOutRetained,
+  .enableInputDelay = false
 };
 
-static void LPSPI2_init(void) {
-  /* Initialize CMSIS SPI */
-  LPSPI2_PERIPHERAL.Initialize(LPSPI2_SignalEvent);
-  /* Power control of CMSIS SPI */
-  LPSPI2_PERIPHERAL.PowerControl(ARM_POWER_FULL);
-  /* Control of CMSIS SPI */
-  LPSPI2_PERIPHERAL.Control(ARM_SPI_MODE_MASTER | ARM_SPI_CPOL0_CPHA0 | ARM_SPI_DATA_BITS(8) | ARM_SPI_MSB_LSB | ARM_SPI_SS_MASTER_HW_OUTPUT, 500000);
-  /* Control of CMSIS SPI */
-  LPSPI2_PERIPHERAL.Control(ARM_SPI_SET_DEFAULT_TX_VALUE, 0);
+static void LPSPI1_init(void) {
+  LPSPI_MasterInit(LPSPI1_PERIPHERAL, &LPSPI1_config, LPSPI1_CLOCK_FREQ);
 }
 
 /***********************************************************************************************************************
@@ -268,12 +272,148 @@ static void SEMC_init(void) {
 }
 
 /***********************************************************************************************************************
- * LPI2C1 initialization code
+ * FLEXSPI initialization code
  **********************************************************************************************************************/
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 instance:
-- name: 'LPI2C1'
+- name: 'FLEXSPI'
+- type: 'flexspi'
+- mode: 'general'
+- custom_name_enabled: 'false'
+- type_id: 'flexspi_380e74d39208b17ae8a8dd5f2724ca53'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'FLEXSPI'
+- config_sets:
+  - fsl_flexspi:
+    - flexspiConfig:
+      - rxSampleClock: 'kFLEXSPI_ReadSampleClkLoopbackInternally'
+      - clockSource: 'FlexSpiClock'
+      - clockSourceFreq: 'ClocksTool_DefaultInit'
+      - enableSckFreeRunning: 'false'
+      - enableCombination: 'false'
+      - enableDoze: 'true'
+      - enableHalfSpeedAccess: 'false'
+      - enableSckBDiffOpt: 'false'
+      - enableSameConfigForAll: 'false'
+      - seqTimeoutCycleString: '65535'
+      - ipGrantTimeoutCycleString: '255'
+      - txWatermark: '8'
+      - rxWatermark: '8'
+      - ahbConfig:
+        - enableAHBWriteIpTxFifo: 'false'
+        - enableAHBWriteIpRxFifo: 'false'
+        - ahbGrantTimeoutCycleString: '255'
+        - ahbBusTimeoutCycleString: '65535'
+        - resumeWaitCycleString: '32'
+        - buffer:
+          - 0:
+            - priority: '0'
+            - masterIndex: '0'
+            - bufferSize: '256'
+            - enablePrefetch: 'true'
+          - 1:
+            - priority: '1'
+            - masterIndex: '0'
+            - bufferSize: '256'
+            - enablePrefetch: 'true'
+          - 2:
+            - priority: '2'
+            - masterIndex: '0'
+            - bufferSize: '256'
+            - enablePrefetch: 'true'
+          - 3:
+            - priority: '3'
+            - masterIndex: '0'
+            - bufferSize: '256'
+            - enablePrefetch: 'true'
+        - enableClearAHBBufferOpt: 'false'
+        - enableReadAddressOpt: 'false'
+        - enableAHBPrefetch: 'false'
+        - enableAHBBufferable: 'false'
+        - enableAHBCachable: 'false'
+    - flexspiInterrupt:
+      - interrupt_sel: ''
+      - interrupt_vectors:
+        - enableInterrupt: 'false'
+        - interrupt:
+          - IRQn: 'FLEXSPI_IRQn'
+          - enable_interrrupt: 'enabled'
+          - enable_priority: 'false'
+          - priority: '0'
+          - enable_custom_name: 'false'
+    - enableCustomLUT: 'false'
+    - lutConfig:
+      - flash: 'defaultFlash'
+      - lutName: 'defaultLUT'
+    - devices_configs: []
+    - quick_selection: 'default'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const flexspi_config_t FLEXSPI_config = {
+  .rxSampleClock = kFLEXSPI_ReadSampleClkLoopbackInternally,
+  .enableSckFreeRunning = false,
+  .enableCombination = false,
+  .enableDoze = true,
+  .enableHalfSpeedAccess = false,
+  .enableSckBDiffOpt = false,
+  .enableSameConfigForAll = false,
+  .seqTimeoutCycle = 65535,
+  .ipGrantTimeoutCycle = 255,
+  .txWatermark = 8U,
+  .rxWatermark = 8U,
+  .ahbConfig = {
+    .enableAHBWriteIpTxFifo = false,
+    .enableAHBWriteIpRxFifo = false,
+    .ahbGrantTimeoutCycle = 255,
+    .ahbBusTimeoutCycle = 65535,
+    .resumeWaitCycle = 32,
+    .buffer = {
+      {
+        .priority = 0,
+        .masterIndex = 0U,
+        .bufferSize = 256U,
+        .enablePrefetch = true
+      },
+      {
+        .priority = 1,
+        .masterIndex = 0U,
+        .bufferSize = 256U,
+        .enablePrefetch = true
+      },
+      {
+        .priority = 2,
+        .masterIndex = 0U,
+        .bufferSize = 256U,
+        .enablePrefetch = true
+      },
+      {
+        .priority = 3,
+        .masterIndex = 0U,
+        .bufferSize = 256U,
+        .enablePrefetch = true
+      }
+    },
+    .enableClearAHBBufferOpt = false,
+    .enableReadAddressOpt = false,
+    .enableAHBPrefetch = false,
+    .enableAHBBufferable = false,
+    .enableAHBCachable = false
+  }
+};
+
+static void FLEXSPI_init(void) {
+  /* FLEXSPI peripheral initialization */
+  FLEXSPI_Init(FLEXSPI_PERIPHERAL, &FLEXSPI_config);
+}
+
+/***********************************************************************************************************************
+ * LPI2C1_2 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'LPI2C1_2'
 - type: 'lpi2c'
 - mode: 'master'
 - custom_name_enabled: 'false'
@@ -320,7 +460,7 @@ instance:
     - quick_selection: 'qs_master_transfer'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
-const lpi2c_master_config_t LPI2C1_masterConfig = {
+const lpi2c_master_config_t LPI2C1_2_masterConfig = {
   .enableMaster = true,
   .enableDoze = true,
   .debugEnable = false,
@@ -337,21 +477,21 @@ const lpi2c_master_config_t LPI2C1_masterConfig = {
     .polarity = kLPI2C_HostRequestPinActiveHigh
   }
 };
-lpi2c_master_transfer_t LPI2C1_masterTransfer = {
+lpi2c_master_transfer_t LPI2C1_2_masterTransfer = {
   .flags = kLPI2C_TransferDefaultFlag,
   .slaveAddress = 0,
   .direction = kLPI2C_Write,
   .subaddress = 0,
   .subaddressSize = 1,
-  .data = LPI2C1_masterBuffer,
+  .data = LPI2C1_2_masterBuffer,
   .dataSize = 1
 };
-lpi2c_master_handle_t LPI2C1_masterHandle;
-uint8_t LPI2C1_masterBuffer[LPI2C1_MASTER_BUFFER_SIZE];
+lpi2c_master_handle_t LPI2C1_2_masterHandle;
+uint8_t LPI2C1_2_masterBuffer[LPI2C1_2_MASTER_BUFFER_SIZE];
 
-static void LPI2C1_init(void) {
-  LPI2C_MasterInit(LPI2C1_PERIPHERAL, &LPI2C1_masterConfig, LPI2C1_CLOCK_FREQ);
-  LPI2C_MasterTransferCreateHandle(LPI2C1_PERIPHERAL, &LPI2C1_masterHandle, NULL, NULL);
+static void LPI2C1_2_init(void) {
+  LPI2C_MasterInit(LPI2C1_2_PERIPHERAL, &LPI2C1_2_masterConfig, LPI2C1_2_CLOCK_FREQ);
+  LPI2C_MasterTransferCreateHandle(LPI2C1_2_PERIPHERAL, &LPI2C1_2_masterHandle, NULL, NULL);
 }
 
 /***********************************************************************************************************************
@@ -360,9 +500,10 @@ static void LPI2C1_init(void) {
 void BOARD_InitPeripherals(void)
 {
   /* Initialize components */
-  LPSPI2_init();
+  LPSPI1_init();
   SEMC_init();
-  LPI2C1_init();
+  FLEXSPI_init();
+  LPI2C1_2_init();
 }
 
 /***********************************************************************************************************************

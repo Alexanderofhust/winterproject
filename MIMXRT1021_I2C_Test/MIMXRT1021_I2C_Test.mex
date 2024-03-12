@@ -70,8 +70,8 @@
                <pin_label pin_num="44" pin_signal="NVCC_SD0" label="NVCC_SD"/>
                <pin_label pin_num="18" pin_signal="GPIO_EMC_00" label="SEMC_D0/U14[2]" identifier="SEMC_D0"/>
                <pin_label pin_num="17" pin_signal="GPIO_EMC_01" label="SEMC_D1/U14[4]" identifier="SEMC_D1"/>
-               <pin_label pin_num="16" pin_signal="GPIO_EMC_02" label="SEMC_D2/U14[5]" identifier="SEMC_D2"/>
-               <pin_label pin_num="15" pin_signal="GPIO_EMC_03" label="SEMC_D3/U14[7]" identifier="SEMC_D3"/>
+               <pin_label pin_num="16" pin_signal="GPIO_EMC_02" label="SEMC_D2/U14[5]" identifier="SEMC_D2;U_SCL"/>
+               <pin_label pin_num="15" pin_signal="GPIO_EMC_03" label="SEMC_D3/U14[7]" identifier="SEMC_D3;U_SDA"/>
                <pin_label pin_num="13" pin_signal="GPIO_EMC_05" label="SEMC_D5/U14[10]" identifier="SEMC_D5"/>
                <pin_label pin_num="12" pin_signal="GPIO_EMC_06" label="SEMC_D6/U14[11]" identifier="SEMC_D6"/>
                <pin_label pin_num="10" pin_signal="GPIO_EMC_07" label="SEMC_D7/U14[13]" identifier="SEMC_D7"/>
@@ -187,6 +187,11 @@
                         <data>true</data>
                      </feature>
                   </dependency>
+                  <dependency resourceType="Peripheral" resourceId="LPI2C1" description="Peripheral LPI2C1 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
                      <feature name="enabled" evaluation="equal" configuration="core0">
                         <data>true</data>
@@ -252,6 +257,16 @@
                   <pin peripheral="LPSPI2" signal="SDO" pin_num="3" pin_signal="GPIO_EMC_12"/>
                   <pin peripheral="LPSPI2" signal="SDI" pin_num="2" pin_signal="GPIO_EMC_13"/>
                   <pin peripheral="LPSPI2" signal="PCS1" pin_num="1" pin_signal="GPIO_EMC_14"/>
+                  <pin peripheral="LPI2C1" signal="SDA" pin_num="15" pin_signal="GPIO_EMC_03">
+                     <pin_features>
+                        <pin_feature name="identifier" value="U_SDA"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LPI2C1" signal="SCL" pin_num="16" pin_signal="GPIO_EMC_02">
+                     <pin_features>
+                        <pin_feature name="identifier" value="U_SCL"/>
+                     </pin_features>
+                  </pin>
                </pins>
             </function>
             <function name="BOARD_InitDEBUG_UARTPins">
@@ -347,8 +362,16 @@
                   <pin peripheral="SEMC" signal="DATA, 06" pin_num="12" pin_signal="GPIO_EMC_06"/>
                   <pin peripheral="SEMC" signal="DATA, 05" pin_num="13" pin_signal="GPIO_EMC_05"/>
                   <pin peripheral="SEMC" signal="DATA, 04" pin_num="14" pin_signal="GPIO_EMC_04"/>
-                  <pin peripheral="SEMC" signal="DATA, 03" pin_num="15" pin_signal="GPIO_EMC_03"/>
-                  <pin peripheral="SEMC" signal="DATA, 02" pin_num="16" pin_signal="GPIO_EMC_02"/>
+                  <pin peripheral="SEMC" signal="DATA, 03" pin_num="15" pin_signal="GPIO_EMC_03">
+                     <pin_features>
+                        <pin_feature name="identifier" value="SEMC_D3"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="SEMC" signal="DATA, 02" pin_num="16" pin_signal="GPIO_EMC_02">
+                     <pin_features>
+                        <pin_feature name="identifier" value="SEMC_D2"/>
+                     </pin_features>
+                  </pin>
                   <pin peripheral="SEMC" signal="DATA, 01" pin_num="17" pin_signal="GPIO_EMC_01"/>
                   <pin peripheral="SEMC" signal="DATA, 00" pin_num="18" pin_signal="GPIO_EMC_00"/>
                </pins>
@@ -897,14 +920,14 @@
       </dcdx>
       <periphs name="Peripherals" version="14.0" enabled="true" update_project_code="true">
          <dependencies>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpspi_cmsis" description="工具链/IDE工程中未找到LPSPI CMSIS Driver。工程不会被编译！" problem_level="2" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpspi" description="工具链/IDE工程中未找到LPSPI Driver。工程不会被编译！" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpspi_cmsis" description="工具链/IDE工程不支持LPSPI CMSIS Driver版本。所需值: ${required_value}, 实际值: ${actual_value}. 工程可能没有被正确编译。" problem_level="1" source="Peripherals">
-               <feature name="version" evaluation="greaterOrEqual">
-                  <data type="Version" maxValue="2.9.9">2.6.0</data>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpspi" description="工具链/IDE工程不支持LPSPI Driver版本。所需值: ${required_value}, 实际值: ${actual_value}. 工程可能没有被正确编译。" problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="equivalent">
+                  <data type="Version">2.6.0</data>
                </feature>
             </dependency>
             <dependency resourceType="SWComponent" resourceId="platform.drivers.semc" description="工具链/IDE工程中未找到SEMC Driver。工程不会被编译！" problem_level="2" source="Peripherals">
@@ -927,9 +950,14 @@
                   <data type="Version" maxValue="2.5.9">2.2.0</data>
                </feature>
             </dependency>
-            <dependency resourceType="Tool" resourceId="Pins" description="外围设备工具需要 Pins 工具，但它已被禁用。" problem_level="2" source="Peripherals">
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.flexspi" description="工具链/IDE工程中未找到FLEXSPI Driver。工程不会被编译！" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
-                  <data>true</data>
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.flexspi" description="工具链/IDE工程不支持FLEXSPI Driver版本。所需值: ${required_value}, 实际值: ${actual_value}. 工程可能没有被正确编译。" problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="greaterOrEqual">
+                  <data type="Version" maxValue="2.6.9">2.5.0</data>
                </feature>
             </dependency>
             <dependency resourceType="Tool" resourceId="Clocks" description="外围设备工具需要 Clocks 工具，但它已被禁用。" problem_level="2" source="Peripherals">
@@ -939,36 +967,51 @@
             </dependency>
          </dependencies>
          <generated_project_files>
-            <file path="board/RTE_Device.h" update_enabled="true"/>
             <file path="board/peripherals.c" update_enabled="true"/>
             <file path="board/peripherals.h" update_enabled="true"/>
          </generated_project_files>
          <peripherals_profile>
             <processor_version>15.0.1</processor_version>
+            <ignored_component_migration_offer/>
          </peripherals_profile>
          <functional_groups>
             <functional_group name="BOARD_InitPeripherals" uuid="6d394465-bc9b-47f2-9a1f-3ca61f76d27b" called_from_default_init="true" id_prefix="" core="core0">
                <description></description>
                <options/>
                <dependencies>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPSPI1.lpspi_sck" description="Signal serial clock is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPSPI1.lpspi_sin" description="Signal serial data input is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPSPI1.lpspi_sout" description="Signal serial data output is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPSPI1.lpspi_pcs0" description="Signal peripheral chip select 0 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
                   <dependency resourceType="ClockOutput" resourceId="LPSPI_CLK_ROOT" description="LPSPI_CLK_ROOT is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPSPI2.lpspi_sck" description="Signal serial clock is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="">
-                        <data type="Boolean">true</data>
+                  <dependency resourceType="ClockOutput" resourceId="FLEXSPI_CLK_ROOT" description="FLEXSPI_CLK_ROOT is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="frequency" evaluation="greaterThan">
+                        <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPSPI2.lpspi_sin" description="Signal serial data input is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="">
-                        <data type="Boolean">true</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPSPI2.lpspi_sout" description="Signal serial data output is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="">
-                        <data type="Boolean">true</data>
+                  <dependency resourceType="ClockOutput" resourceId="AHB_CLK_ROOT" description="AHB_CLK_ROOT is inactive." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="frequency" evaluation="greaterThan">
+                        <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="ClockOutput" resourceId="LPI2C_CLK_ROOT" description="LPI2C_CLK_ROOT is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
@@ -990,13 +1033,11 @@
                <instances>
                   <instance name="NVIC" uuid="7332ec1f-03f7-4ee0-9784-25067d515018" type="nvic" type_id="nvic_57b5eef3774cc60acaede6f5b8bddc67" mode="general" peripheral="NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
                      <config_set name="nvic">
-                        <array name="interrupt_table">
-                           <struct name="0"/>
-                        </array>
+                        <array name="interrupt_table"/>
                         <array name="interrupts"/>
                      </config_set>
                   </instance>
-                  <instance name="LPSPI1" uuid="604d5fa7-ff96-43b8-9fcc-afea3dea011f" type="lpspi" type_id="lpspi_3b8318dca8e0034b76e041f04d445c24" mode="polling" peripheral="LPSPI1" enabled="false" comment="" custom_name_enabled="false" editing_lock="false">
+                  <instance name="LPSPI1" uuid="604d5fa7-ff96-43b8-9fcc-afea3dea011f" type="lpspi" type_id="lpspi_3b8318dca8e0034b76e041f04d445c24" mode="polling" peripheral="LPSPI1" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
                      <config_set name="main" quick_selection="qs_master">
                         <setting name="mode" value="kLPSPI_Master"/>
                         <setting name="clockSource" value="LpspiClock"/>
@@ -1030,7 +1071,7 @@
                         </struct>
                      </config_set>
                   </instance>
-                  <instance name="LPSPI2" uuid="81d6b68d-9bf1-4161-ab49-928bd0044244" type="lpspi_cmsis" type_id="lpspi_cmsis_20c8e626b665b1f41c2023229558fbf2" mode="interrupt" peripheral="LPSPI2" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                  <instance name="LPSPI2" uuid="81d6b68d-9bf1-4161-ab49-928bd0044244" type="lpspi_cmsis" type_id="lpspi_cmsis_20c8e626b665b1f41c2023229558fbf2" mode="interrupt" peripheral="LPSPI2" enabled="false" comment="" custom_name_enabled="false" editing_lock="false">
                      <config_set name="general">
                         <struct name="main_config">
                            <setting name="spi_mode_user" value="ARM_SPI_MODE_MASTER"/>
@@ -1127,7 +1168,7 @@
                         <array name="sdramArray"/>
                      </config_set>
                   </instance>
-                  <instance name="LPI2C1" uuid="53243360-fb96-46be-98b7-a75e23ef9c2a" type="lpi2c" type_id="lpi2c_6b71962515c3208facfccd030afebc98" mode="master" peripheral="LPI2C1" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                  <instance name="LPI2C1" uuid="53243360-fb96-46be-98b7-a75e23ef9c2a" type="lpi2c" type_id="lpi2c_6b71962515c3208facfccd030afebc98" mode="master" peripheral="LPI2C1" enabled="false" comment="" custom_name_enabled="false" editing_lock="false">
                      <config_set name="main">
                         <setting name="clockSource" value="Lpi2cClock"/>
                         <setting name="clockSourceFreq" value="ClocksTool_DefaultInit"/>
@@ -1172,6 +1213,166 @@
                            <setting name="blocking_buffer" value="false"/>
                            <setting name="enable_custom_buffer" value="false"/>
                            <setting name="dataSize" value="1"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="FLEXSPI" uuid="b53b42cd-5f46-4fb0-a406-68ee5aaf805f" type="flexspi" type_id="flexspi_380e74d39208b17ae8a8dd5f2724ca53" mode="general" peripheral="FLEXSPI" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="fsl_flexspi" quick_selection="default">
+                        <struct name="flexspiConfig">
+                           <setting name="rxSampleClock" value="kFLEXSPI_ReadSampleClkLoopbackInternally"/>
+                           <setting name="clockSource" value="FlexSpiClock"/>
+                           <setting name="clockSourceFreq" value="ClocksTool_DefaultInit"/>
+                           <setting name="enableSckFreeRunning" value="false"/>
+                           <setting name="enableCombination" value="false"/>
+                           <setting name="enableDoze" value="true"/>
+                           <setting name="enableHalfSpeedAccess" value="false"/>
+                           <setting name="enableSckBDiffOpt" value="false"/>
+                           <setting name="enableSameConfigForAll" value="false"/>
+                           <setting name="seqTimeoutCycleString" value="65535"/>
+                           <setting name="ipGrantTimeoutCycleString" value="255"/>
+                           <setting name="txWatermark" value="8"/>
+                           <setting name="rxWatermark" value="8"/>
+                           <struct name="ahbConfig">
+                              <setting name="enableAHBWriteIpTxFifo" value="false"/>
+                              <setting name="enableAHBWriteIpRxFifo" value="false"/>
+                              <setting name="ahbGrantTimeoutCycleString" value="255"/>
+                              <setting name="ahbBusTimeoutCycleString" value="65535"/>
+                              <setting name="resumeWaitCycleString" value="32"/>
+                              <array name="buffer">
+                                 <struct name="0">
+                                    <setting name="priority" value="0"/>
+                                    <setting name="masterIndex" value="0"/>
+                                    <setting name="bufferSize" value="256"/>
+                                    <setting name="enablePrefetch" value="true"/>
+                                 </struct>
+                                 <struct name="1">
+                                    <setting name="priority" value="1"/>
+                                    <setting name="masterIndex" value="0"/>
+                                    <setting name="bufferSize" value="256"/>
+                                    <setting name="enablePrefetch" value="true"/>
+                                 </struct>
+                                 <struct name="2">
+                                    <setting name="priority" value="2"/>
+                                    <setting name="masterIndex" value="0"/>
+                                    <setting name="bufferSize" value="256"/>
+                                    <setting name="enablePrefetch" value="true"/>
+                                 </struct>
+                                 <struct name="3">
+                                    <setting name="priority" value="3"/>
+                                    <setting name="masterIndex" value="0"/>
+                                    <setting name="bufferSize" value="256"/>
+                                    <setting name="enablePrefetch" value="true"/>
+                                 </struct>
+                              </array>
+                              <setting name="enableClearAHBBufferOpt" value="false"/>
+                              <setting name="enableReadAddressOpt" value="false"/>
+                              <setting name="enableAHBPrefetch" value="false"/>
+                              <setting name="enableAHBBufferable" value="false"/>
+                              <setting name="enableAHBCachable" value="false"/>
+                           </struct>
+                        </struct>
+                        <struct name="flexspiInterrupt">
+                           <set name="interrupt_sel">
+                              <selected/>
+                           </set>
+                           <struct name="interrupt_vectors">
+                              <setting name="enableInterrupt" value="false"/>
+                              <struct name="interrupt">
+                                 <setting name="IRQn" value="FLEXSPI_IRQn"/>
+                                 <setting name="enable_interrrupt" value="enabled"/>
+                                 <setting name="enable_priority" value="false"/>
+                                 <setting name="priority" value="0"/>
+                                 <setting name="enable_custom_name" value="false"/>
+                              </struct>
+                           </struct>
+                        </struct>
+                        <setting name="enableCustomLUT" value="false"/>
+                        <struct name="lutConfig">
+                           <setting name="flash" value="defaultFlash"/>
+                           <setting name="lutName" value="defaultLUT"/>
+                        </struct>
+                        <array name="devices_configs"/>
+                     </config_set>
+                  </instance>
+                  <instance name="LPI2C1_2" uuid="301cfe09-4609-451d-81b5-3186b04c3dde" type="lpi2c" type_id="lpi2c_6b71962515c3208facfccd030afebc98" mode="master" peripheral="LPI2C1" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="main">
+                        <setting name="clockSource" value="Lpi2cClock"/>
+                        <setting name="clockSourceFreq" value="ClocksTool_DefaultInit"/>
+                     </config_set>
+                     <config_set name="interrupt_vector"/>
+                     <config_set name="master" quick_selection="qs_master_transfer">
+                        <setting name="mode" value="transfer"/>
+                        <struct name="config">
+                           <setting name="enableMaster" value="true"/>
+                           <setting name="enableDoze" value="true"/>
+                           <setting name="debugEnable" value="false"/>
+                           <setting name="ignoreAck" value="false"/>
+                           <setting name="pinConfig" value="kLPI2C_2PinOpenDrain"/>
+                           <setting name="baudRate_Hz" value="100000"/>
+                           <setting name="busIdleTimeout_ns" value="0"/>
+                           <setting name="pinLowTimeout_ns" value="0"/>
+                           <setting name="sdaGlitchFilterWidth_ns" value="0"/>
+                           <setting name="sclGlitchFilterWidth_ns" value="0"/>
+                           <struct name="hostRequest">
+                              <setting name="enable" value="false"/>
+                              <setting name="source" value="kLPI2C_HostRequestExternalPin"/>
+                              <setting name="polarity" value="kLPI2C_HostRequestPinActiveHigh"/>
+                           </struct>
+                           <set name="edmaRequestSources">
+                              <selected/>
+                           </set>
+                        </struct>
+                        <struct name="transfer">
+                           <setting name="blocking" value="false"/>
+                           <setting name="enable_custom_handle" value="false"/>
+                           <struct name="callback">
+                              <setting name="name" value=""/>
+                              <setting name="userData" value=""/>
+                           </struct>
+                           <set name="flags">
+                              <selected/>
+                           </set>
+                           <setting name="slaveAddress" value="0"/>
+                           <setting name="direction" value="kLPI2C_Write"/>
+                           <setting name="subaddress" value="0"/>
+                           <setting name="subaddressSize" value="1"/>
+                           <setting name="blocking_buffer" value="false"/>
+                           <setting name="enable_custom_buffer" value="false"/>
+                           <setting name="dataSize" value="1"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="LPSPI3" uuid="a883f8bb-3720-4096-aacf-7455be817852" type="lpspi" type_id="lpspi_3b8318dca8e0034b76e041f04d445c24" mode="polling" peripheral="LPSPI3" enabled="false" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="main" quick_selection="qs_master">
+                        <setting name="mode" value="kLPSPI_Master"/>
+                        <setting name="clockSource" value="LpspiClock"/>
+                        <setting name="clockSourceFreq" value="ClocksTool_DefaultInit"/>
+                        <struct name="master">
+                           <setting name="baudRate" value="500000"/>
+                           <setting name="bitsPerFrame" value="8"/>
+                           <setting name="cpol" value="kLPSPI_ClockPolarityActiveHigh"/>
+                           <setting name="cpha" value="kLPSPI_ClockPhaseFirstEdge"/>
+                           <setting name="direction" value="kLPSPI_MsbFirst"/>
+                           <setting name="pcsToSckDelayInNanoSec" value="1000"/>
+                           <setting name="lastSckToPcsDelayInNanoSec" value="1000"/>
+                           <setting name="betweenTransferDelayInNanoSec" value="1000"/>
+                           <setting name="whichPcs" value="kLPSPI_Pcs0"/>
+                           <setting name="pcsActiveHighOrLow" value="kLPSPI_PcsActiveLow"/>
+                           <setting name="pinCfg" value="kLPSPI_SdiInSdoOut"/>
+                           <setting name="pcsFunc" value="kLPSPI_PcsAsCs"/>
+                           <setting name="dataOutConfig" value="kLpspiDataOutRetained"/>
+                           <setting name="enableInputDelay" value="false"/>
+                        </struct>
+                        <setting name="set_FifoWaterMarks" value="false"/>
+                        <struct name="fifoWaterMarks">
+                           <setting name="txWatermark" value="0"/>
+                           <setting name="rxWatermark" value="0"/>
+                        </struct>
+                        <setting name="allPcsPolarityEnable" value="false"/>
+                        <struct name="allPcsPolarity">
+                           <setting name="kLPSPI_Pcs1Active" value="kLPSPI_PcsActiveLow"/>
+                           <setting name="kLPSPI_Pcs2Active" value="kLPSPI_PcsActiveLow"/>
+                           <setting name="kLPSPI_Pcs3Active" value="kLPSPI_PcsActiveLow"/>
                         </struct>
                      </config_set>
                   </instance>

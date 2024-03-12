@@ -28,6 +28,7 @@
 #include <stdlib.h> /* exit, size_t, malloc, free */
 #include <math.h> /* demo */
 #include "st7735s.h"
+#include "resistence.h"
 /* SPI buffer size of Wiring Pi; http://wiringpi.com/reference/spi-library/ */
 #define WPI_SPI_BUFFER_SIZE  4096 /* x * 1024 */
 #define WPI_SPI_CHANNEL         0
@@ -36,6 +37,7 @@
 #define PIN_CHIP_SELECT        10
 int main(void) {
 
+	gpio_pin_config_t resistence_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
     /* Init board hardware. */
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
@@ -66,6 +68,7 @@ int main(void) {
            printf("sht30 init ok.\n");
        else
            printf("sht30 init fail.\n");
+
      /* USER CODE END 2 */
 
        /*LCD code begin*/
@@ -110,6 +113,7 @@ int main(void) {
                printf("read data from sht30 fail.\n");
            }
        }
+
      /* USER CODE END 3 */
 }
 //addition to LCE begin

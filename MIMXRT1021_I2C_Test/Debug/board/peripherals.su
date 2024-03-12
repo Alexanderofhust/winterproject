@@ -1,0 +1,6 @@
+../board/peripherals.c:143:13:LPSPI1_init	8	static
+../board/peripherals.c:267:13:SEMC_init	8	static
+../board/peripherals.c:405:13:FLEXSPI_init	8	static
+../board/peripherals.c:492:13:LPI2C1_2_init	8	static
+../board/peripherals.c:500:6:BOARD_InitPeripherals	8	static
+../board/peripherals.c:512:6:BOARD_InitBootPeripherals	8	static
