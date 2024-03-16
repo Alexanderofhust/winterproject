@@ -450,14 +450,13 @@ instance:
         - name: ''
         - userData: ''
       - flags: ''
-      - slaveAddress: '0'
+      - slaveAddress: '0x44'
       - direction: 'kLPI2C_Write'
       - subaddress: '0'
       - subaddressSize: '1'
       - blocking_buffer: 'false'
       - enable_custom_buffer: 'false'
       - dataSize: '1'
-    - quick_selection: 'qs_master_transfer'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 const lpi2c_master_config_t LPI2C1_2_masterConfig = {
@@ -479,7 +478,7 @@ const lpi2c_master_config_t LPI2C1_2_masterConfig = {
 };
 lpi2c_master_transfer_t LPI2C1_2_masterTransfer = {
   .flags = kLPI2C_TransferDefaultFlag,
-  .slaveAddress = 0,
+  .slaveAddress = 0x44,
   .direction = kLPI2C_Write,
   .subaddress = 0,
   .subaddressSize = 1,

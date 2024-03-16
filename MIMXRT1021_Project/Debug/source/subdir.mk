@@ -5,24 +5,30 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../source/MIMXRT1021_I2C_Test.c \
+../source/lcd.c \
 ../source/resistence.c \
 ../source/semihost_hardfault.c \
 ../source/sht30.c \
-../source/st7735s.c 
+../source/st7735s.c \
+../source/ui.c 
 
 C_DEPS += \
 ./source/MIMXRT1021_I2C_Test.d \
+./source/lcd.d \
 ./source/resistence.d \
 ./source/semihost_hardfault.d \
 ./source/sht30.d \
-./source/st7735s.d 
+./source/st7735s.d \
+./source/ui.d 
 
 OBJS += \
 ./source/MIMXRT1021_I2C_Test.o \
+./source/lcd.o \
 ./source/resistence.o \
 ./source/semihost_hardfault.o \
 ./source/sht30.o \
-./source/st7735s.o 
+./source/st7735s.o \
+./source/ui.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -37,7 +43,7 @@ source/%.o: ../source/%.c source/subdir.mk
 clean: clean-source
 
 clean-source:
-	-$(RM) ./source/MIMXRT1021_I2C_Test.d ./source/MIMXRT1021_I2C_Test.o ./source/resistence.d ./source/resistence.o ./source/semihost_hardfault.d ./source/semihost_hardfault.o ./source/sht30.d ./source/sht30.o ./source/st7735s.d ./source/st7735s.o
+	-$(RM) ./source/MIMXRT1021_I2C_Test.d ./source/MIMXRT1021_I2C_Test.o ./source/lcd.d ./source/lcd.o ./source/resistence.d ./source/resistence.o ./source/semihost_hardfault.d ./source/semihost_hardfault.o ./source/sht30.d ./source/sht30.o ./source/st7735s.d ./source/st7735s.o ./source/ui.d ./source/ui.o
 
 .PHONY: clean-source
 

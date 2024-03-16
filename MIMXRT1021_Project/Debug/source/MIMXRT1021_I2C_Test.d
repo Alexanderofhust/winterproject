@@ -31,7 +31,9 @@ source/MIMXRT1021_I2C_Test.o source/MIMXRT1021_I2C_Test.d: \
  C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\component\serial_manager/fsl_component_serial_port_uart.h \
  C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\component\uart/fsl_adapter_uart.h \
  ../source/sht30_i2c_drv.h ../source/sht30.h ../source/st7735s.h \
- ../source/resistence.h
+ ../source/resistence.h ../source/lcd.h \
+ C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\drivers/fsl_iomuxc.h \
+ ../source/ui.h
 C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\board/board.h:
 C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\board/clock_config.h:
 C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\drivers/fsl_common.h:
@@ -66,3 +68,6 @@ C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test
 ../source/sht30.h:
 ../source/st7735s.h:
 ../source/resistence.h:
+../source/lcd.h:
+C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\drivers/fsl_iomuxc.h:
+../source/ui.h:

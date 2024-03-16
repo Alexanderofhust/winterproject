@@ -1,0 +1,2 @@
+../source/MIMXRT1021_I2C_Test.c:41:5:main	176	static
+../source/MIMXRT1021_I2C_Test.c:149:6:fail_handler	8	static

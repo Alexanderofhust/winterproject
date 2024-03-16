@@ -1300,7 +1300,7 @@
                         <setting name="clockSourceFreq" value="ClocksTool_DefaultInit"/>
                      </config_set>
                      <config_set name="interrupt_vector"/>
-                     <config_set name="master" quick_selection="qs_master_transfer">
+                     <config_set name="master">
                         <setting name="mode" value="transfer"/>
                         <struct name="config">
                            <setting name="enableMaster" value="true"/>
@@ -1332,7 +1332,7 @@
                            <set name="flags">
                               <selected/>
                            </set>
-                           <setting name="slaveAddress" value="0"/>
+                           <setting name="slaveAddress" value="0x44"/>
                            <setting name="direction" value="kLPI2C_Write"/>
                            <setting name="subaddress" value="0"/>
                            <setting name="subaddressSize" value="1"/>

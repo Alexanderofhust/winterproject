@@ -11,6 +11,7 @@
 #include "fsl_lpi2c.h"
 #include "fsl_common.h"
 #include "fsl_gpio.h"
+#include "peripherals.h"
 #define LPI2C_MASTER_CLOCK_FREQUENCY LPI2C_CLOCK_FREQUENCY
 
 
@@ -33,7 +34,19 @@ uint8_t g_master_txBuff[I2C_DATA_LENGTH];
 */
 static unsigned char    SHT30_Send_Cmd(SHT30_CMD cmd)
 {
-	lpi2c_master_transfer_t *p;
+	lpi2c_master_transfer_t p = {
+			  .flags = kLPI2C_TransferDefaultFlag,
+			  .slaveAddress = 0x44,
+			  .direction = kLPI2C_Write,
+			  .subaddress = 0,
+			  .subaddressSize = 1,
+			  .data = g_master_txBuff,
+			  .dataSize = I2C_DATA_LENGTH - 1
+			};
+	LPI2C_Type p1;
+	p1=0;
+
+	/*
 	p=0;
 	p->slaveAddress   = SHT30_ADDR_WRITE;
 	p->direction      = 0;//write
@@ -41,15 +54,15 @@ static unsigned char    SHT30_Send_Cmd(SHT30_CMD cmd)
 	p->subaddressSize = 1;
 	p->data           = g_master_rxBuff;
 	p->dataSize       = I2C_DATA_LENGTH - 1;
-	p->flags          = kLPI2C_TransferDefaultFlag;
+	p->flags          = kLPI2C_TransferDefaultFlag;*/
 
     uint8_t cmd_buffer[2];
     cmd_buffer[0] = cmd >> 8;
     cmd_buffer[1] = cmd;
-    myi2c_start();
+   /* myi2c_start();
     myi2c_write(cmd);
-    myi2c_stop();
-   // LPI2C_MasterSend(p,cmd_buffer,2);
+    myi2c_stop();*/
+    LPI2C_MasterSend(EXAMPLE_I2C_MASTER,&cmd_buffer,2);
   //  return HAL_I2C_Master_Transmit(&hi2c1, SHT30_ADDR_WRITE, (uint8_t* cmd_buffer, 2, 0xFFFF);
     return 0;//need function
 }
@@ -80,7 +93,16 @@ uint8_t SHT30_Init(void)
 */
 uint8_t SHT30_Read_Dat(uint8_t* dat)
 {
-	lpi2c_master_transfer_t *p2;
+	lpi2c_master_transfer_t p2= {
+			  .flags = kLPI2C_TransferDefaultFlag,
+			  .slaveAddress = 0x44,
+			  .direction = kLPI2C_Read,
+			  .subaddress = 0,
+			  .subaddressSize = 1,
+			  .data = g_master_rxBuff,
+			  .dataSize = I2C_DATA_LENGTH - 1
+			};;
+	/*
 	p2=0;
 	 p2->slaveAddress   = 0;//slaveaddr is not clear
 	    p2->direction      = kLPI2C_Read;
@@ -88,7 +110,7 @@ uint8_t SHT30_Read_Dat(uint8_t* dat)
 	    p2->subaddressSize = 1;
 	    p2->data           = g_master_rxBuff;
 	   p2->dataSize       = I2C_DATA_LENGTH - 1;
-	    p2->flags          = kLPI2C_TransferDefaultFlag;
+	    p2->flags          = kLPI2C_TransferDefaultFlag;*/
     SHT30_Send_Cmd(READOUT_FOR_PERIODIC_MODE);
     LPI2C_MasterReceive(p2,dat,6);
    // return HAL_I2C_Master_Receive(&hi2c1, SHT30_ADDR_READ, dat, 6, 0xFFFF);
@@ -294,4 +316,38 @@ uint8_t myi2c_read(bool hasAck){
 	return data;
 }
 
-
+/*void SHT30_tryInit(void)
+{
+	lpi2c_master_transfer_t p3;
+	lpi2c_master_handle_t *handle;
+	const lpi2c_master_config_t p_config = {
+	  .enableMaster = true,
+	  .enableDoze = true,
+	  .debugEnable = false,
+	  .ignoreAck = false,
+	  .pinConfig = kLPI2C_2PinOpenDrain,
+	  .baudRate_Hz = 100000UL,
+	  .busIdleTimeout_ns = 0UL,
+	  .pinLowTimeout_ns = 0UL,
+	  .sdaGlitchFilterWidth_ns = 0U,
+	  .sclGlitchFilterWidth_ns = 0U,
+	  .hostRequest = {
+	    .enable = false,
+	    .source = kLPI2C_HostRequestExternalPin,
+	    .polarity = kLPI2C_HostRequestPinActiveHigh
+	  }
+	};
+	lpi2c_master_transfer_t p_transfer = {
+	  .flags = kLPI2C_TransferDefaultFlag,
+	  .slaveAddress = 0x44,
+	  .direction = kLPI2C_Write,
+	  .subaddress = 0,
+	  .subaddressSize = 1,
+	  .data = LPI2C1_2_masterBuffer,
+	  .dataSize = 1
+	};
+	lpi2c_master_transfer_callback_t callback;
+	LPI2C_MasterInit(p_transfer, p_config, LPI2C1_2_CLOCK_FREQ);
+	LPI2C_MasterTransferCreateHandle(LPI2C1_2_PERIPHERAL, handle, NULL,g_master_txBuff );
+}
+*/

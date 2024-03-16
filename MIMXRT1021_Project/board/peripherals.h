@@ -46,7 +46,7 @@ extern "C" {
 /* Transfer buffer size */
 #define LPI2C1_2_MASTER_BUFFER_SIZE 1
 /* Definition of slave address */
-#define LPI2C1_2_MASTER_SLAVE_ADDRESS 0
+#define LPI2C1_2_MASTER_SLAVE_ADDRESS 68
 
 /***********************************************************************************************************************
  * Global variables
