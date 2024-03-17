@@ -12,10 +12,10 @@
 #include "fsl_common.h"
 #include "fsl_gpio.h"
 #include "peripherals.h"
-#define LPI2C_MASTER_CLOCK_FREQUENCY LPI2C_CLOCK_FREQUENCY
+#define LPI2C_MASTER_CLOCK_FREQUENCY 60000000
 
 
-#define EXAMPLE_I2C_MASTER ((LPI2C_Type *)EXAMPLE_I2C_MASTER_BASE)
+//#define EXAMPLE_I2C_MASTER ((LPI2C_Type *)EXAMPLE_I2C_MASTER_BASE)
 
 #define I2C_MASTER_SLAVE_ADDR_7BIT 0x7EU
 #define I2C_BAUDRATE               100000U
@@ -34,7 +34,7 @@ uint8_t g_master_txBuff[I2C_DATA_LENGTH];
 */
 static unsigned char    SHT30_Send_Cmd(SHT30_CMD cmd)
 {
-	lpi2c_master_transfer_t p = {
+	/*lpi2c_master_transfer_t p1_t = {
 			  .flags = kLPI2C_TransferDefaultFlag,
 			  .slaveAddress = 0x44,
 			  .direction = kLPI2C_Write,
@@ -42,19 +42,14 @@ static unsigned char    SHT30_Send_Cmd(SHT30_CMD cmd)
 			  .subaddressSize = 1,
 			  .data = g_master_txBuff,
 			  .dataSize = I2C_DATA_LENGTH - 1
-			};
-	LPI2C_Type p1;
-	p1=0;
+			};*/
 
-	/*
-	p=0;
-	p->slaveAddress   = SHT30_ADDR_WRITE;
-	p->direction      = 0;//write
-	p->subaddress     = (uint32_t)0;
-	p->subaddressSize = 1;
-	p->data           = g_master_rxBuff;
-	p->dataSize       = I2C_DATA_LENGTH - 1;
-	p->flags          = kLPI2C_TransferDefaultFlag;*/
+	LPI2C_Type *p1;
+	lpi2c_master_config_t *p1_config;
+	LPI2C_MasterGetDefaultConfig(p1_config);
+	LPI2C_MasterInit(p1,p1_config,LPI2C_MASTER_CLOCK_FREQUENCY);
+
+
 
     uint8_t cmd_buffer[2];
     cmd_buffer[0] = cmd >> 8;
@@ -62,7 +57,7 @@ static unsigned char    SHT30_Send_Cmd(SHT30_CMD cmd)
    /* myi2c_start();
     myi2c_write(cmd);
     myi2c_stop();*/
-    LPI2C_MasterSend(EXAMPLE_I2C_MASTER,&cmd_buffer,2);
+    LPI2C_MasterSend(p1,cmd_buffer,2);
   //  return HAL_I2C_Master_Transmit(&hi2c1, SHT30_ADDR_WRITE, (uint8_t* cmd_buffer, 2, 0xFFFF);
     return 0;//need function
 }
@@ -93,7 +88,7 @@ uint8_t SHT30_Init(void)
 */
 uint8_t SHT30_Read_Dat(uint8_t* dat)
 {
-	lpi2c_master_transfer_t p2= {
+	lpi2c_master_transfer_t p2_t= {
 			  .flags = kLPI2C_TransferDefaultFlag,
 			  .slaveAddress = 0x44,
 			  .direction = kLPI2C_Read,
@@ -101,7 +96,11 @@ uint8_t SHT30_Read_Dat(uint8_t* dat)
 			  .subaddressSize = 1,
 			  .data = g_master_rxBuff,
 			  .dataSize = I2C_DATA_LENGTH - 1
-			};;
+			};
+	LPI2C_Type *p2;
+	lpi2c_master_config_t *p2_config;
+		LPI2C_MasterGetDefaultConfig(p2_config);
+		LPI2C_MasterInit(p2,p2_config,LPI2C_MASTER_CLOCK_FREQUENCY);
 	/*
 	p2=0;
 	 p2->slaveAddress   = 0;//slaveaddr is not clear

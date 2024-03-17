@@ -86,10 +86,10 @@ pin_labels:
 - {pin_num: '127', pin_signal: GPIO_EMC_29, label: 'SEMC_CKE/U14[37]', identifier: SEMC_CKE;U_Re0}
 - {pin_num: '126', pin_signal: GPIO_EMC_30, label: 'SEMC_CLK/U14[38]', identifier: SEMC_CLK}
 - {pin_num: '125', pin_signal: GPIO_EMC_31, label: 'SEMC_DM1/U14[39]', identifier: SEMC_DM1}
-- {pin_num: '124', pin_signal: GPIO_EMC_32, label: 'SEMC_D8/U14[42]', identifier: SEMC_D8}
-- {pin_num: '123', pin_signal: GPIO_EMC_33, label: 'SEMC_D9/U14[44]', identifier: SEMC_D9}
-- {pin_num: '122', pin_signal: GPIO_EMC_34, label: 'SEMC_D10/U14[45]', identifier: SEMC_D10}
-- {pin_num: '121', pin_signal: GPIO_EMC_35, label: 'SEMC_D11/U14[47]', identifier: SEMC_D11}
+- {pin_num: '124', pin_signal: GPIO_EMC_32, label: 'SEMC_D8/U14[42]', identifier: SEMC_D8;S_MOSI;S_SCK;S_CLK}
+- {pin_num: '123', pin_signal: GPIO_EMC_33, label: 'SEMC_D9/U14[44]', identifier: SEMC_D9;S_CS}
+- {pin_num: '122', pin_signal: GPIO_EMC_34, label: 'SEMC_D10/U14[45]', identifier: SEMC_D10;S_MOSI}
+- {pin_num: '121', pin_signal: GPIO_EMC_35, label: 'SEMC_D11/U14[47]', identifier: SEMC_D11;S_MISO}
 - {pin_num: '120', pin_signal: GPIO_EMC_36, label: 'SEMC_D12/U14[48]', identifier: SEMC_D12}
 - {pin_num: '119', pin_signal: GPIO_EMC_37, label: 'SEMC_D13/U14[50]', identifier: SEMC_D13}
 - {pin_num: '118', pin_signal: GPIO_EMC_38, label: 'SEMC_D14/U14[51]', identifier: SEMC_D14}
@@ -183,10 +183,10 @@ BOARD_InitPins:
   - {pin_num: '52', peripheral: GPIO5, signal: 'gpio_io, 00', pin_signal: WAKEUP}
   - {pin_num: '53', peripheral: GPIO5, signal: 'gpio_io, 01', pin_signal: PMIC_ON_REQ}
   - {pin_num: '125', peripheral: GPIO2, signal: 'gpio_io, 31', pin_signal: GPIO_EMC_31, direction: OUTPUT}
-  - {pin_num: '124', peripheral: GPIO3, signal: 'gpio_io, 00', pin_signal: GPIO_EMC_32, direction: OUTPUT}
-  - {pin_num: '123', peripheral: GPIO3, signal: 'gpio_io, 01', pin_signal: GPIO_EMC_33, direction: OUTPUT}
-  - {pin_num: '122', peripheral: GPIO3, signal: 'gpio_io, 02', pin_signal: GPIO_EMC_34, direction: OUTPUT}
-  - {pin_num: '121', peripheral: GPIO3, signal: 'gpio_io, 03', pin_signal: GPIO_EMC_35, direction: OUTPUT}
+  - {pin_num: '124', peripheral: LPSPI4, signal: SCK, pin_signal: GPIO_EMC_32, identifier: S_CLK, direction: OUTPUT}
+  - {pin_num: '123', peripheral: LPSPI4, signal: PCS0, pin_signal: GPIO_EMC_33, identifier: S_CS, direction: OUTPUT}
+  - {pin_num: '122', peripheral: LPSPI4, signal: SDO, pin_signal: GPIO_EMC_34, identifier: S_MOSI, direction: OUTPUT}
+  - {pin_num: '121', peripheral: LPSPI4, signal: SDI, pin_signal: GPIO_EMC_35, identifier: S_MISO, direction: INPUT}
   - {pin_num: '120', peripheral: GPIO3, signal: 'gpio_io, 04', pin_signal: GPIO_EMC_36, direction: OUTPUT}
   - {pin_num: '119', peripheral: GPIO3, signal: 'gpio_io, 05', pin_signal: GPIO_EMC_37, direction: OUTPUT}
   - {pin_num: '127', peripheral: GPIO2, signal: 'gpio_io, 29', pin_signal: GPIO_EMC_29, identifier: U_Re0, direction: OUTPUT}
@@ -228,42 +228,6 @@ void BOARD_InitPins(void) {
   /* Initialize GPIO functionality on GPIO_EMC_31 (pin 125) */
   GPIO_PinInit(GPIO2, 31U, &SEMC_DM1_config);
 
-  /* GPIO configuration of SEMC_D8 on GPIO_EMC_32 (pin 124) */
-  gpio_pin_config_t SEMC_D8_config = {
-      .direction = kGPIO_DigitalOutput,
-      .outputLogic = 0U,
-      .interruptMode = kGPIO_NoIntmode
-  };
-  /* Initialize GPIO functionality on GPIO_EMC_32 (pin 124) */
-  GPIO_PinInit(GPIO3, 0U, &SEMC_D8_config);
-
-  /* GPIO configuration of SEMC_D9 on GPIO_EMC_33 (pin 123) */
-  gpio_pin_config_t SEMC_D9_config = {
-      .direction = kGPIO_DigitalOutput,
-      .outputLogic = 0U,
-      .interruptMode = kGPIO_NoIntmode
-  };
-  /* Initialize GPIO functionality on GPIO_EMC_33 (pin 123) */
-  GPIO_PinInit(GPIO3, 1U, &SEMC_D9_config);
-
-  /* GPIO configuration of SEMC_D10 on GPIO_EMC_34 (pin 122) */
-  gpio_pin_config_t SEMC_D10_config = {
-      .direction = kGPIO_DigitalOutput,
-      .outputLogic = 0U,
-      .interruptMode = kGPIO_NoIntmode
-  };
-  /* Initialize GPIO functionality on GPIO_EMC_34 (pin 122) */
-  GPIO_PinInit(GPIO3, 2U, &SEMC_D10_config);
-
-  /* GPIO configuration of SEMC_D11 on GPIO_EMC_35 (pin 121) */
-  gpio_pin_config_t SEMC_D11_config = {
-      .direction = kGPIO_DigitalOutput,
-      .outputLogic = 0U,
-      .interruptMode = kGPIO_NoIntmode
-  };
-  /* Initialize GPIO functionality on GPIO_EMC_35 (pin 121) */
-  GPIO_PinInit(GPIO3, 3U, &SEMC_D11_config);
-
   /* GPIO configuration of SEMC_D12 on GPIO_EMC_36 (pin 120) */
   gpio_pin_config_t SEMC_D12_config = {
       .direction = kGPIO_DigitalOutput,
@@ -291,10 +255,10 @@ void BOARD_InitPins(void) {
   IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_14_LPSPI2_PCS1, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_29_GPIO2_IO29, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_31_GPIO2_IO31, 0U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_32_GPIO3_IO00, 0U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_33_GPIO3_IO01, 0U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_34_GPIO3_IO02, 0U); 
-  IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_35_GPIO3_IO03, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_32_LPSPI4_SCK, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_33_LPSPI4_PCS0, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_34_LPSPI4_SDO, 0U); 
+  IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_35_LPSPI4_SDI, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_36_GPIO3_IO04, 0U); 
   IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_37_GPIO3_IO05, 0U); 
   IOMUXC_SetPinMux(IOMUXC_SNVS_PMIC_ON_REQ_GPIO5_IO01, 0U); 
@@ -357,10 +321,10 @@ BOARD_InitSDRAMPins:
   - {pin_num: '118', peripheral: SEMC, signal: 'DATA, 14', pin_signal: GPIO_EMC_38}
   - {pin_num: '119', peripheral: SEMC, signal: 'DATA, 13', pin_signal: GPIO_EMC_37}
   - {pin_num: '120', peripheral: SEMC, signal: 'DATA, 12', pin_signal: GPIO_EMC_36}
-  - {pin_num: '122', peripheral: SEMC, signal: 'DATA, 10', pin_signal: GPIO_EMC_34}
-  - {pin_num: '121', peripheral: SEMC, signal: 'DATA, 11', pin_signal: GPIO_EMC_35}
-  - {pin_num: '123', peripheral: SEMC, signal: 'DATA, 09', pin_signal: GPIO_EMC_33}
-  - {pin_num: '124', peripheral: SEMC, signal: 'DATA, 08', pin_signal: GPIO_EMC_32}
+  - {pin_num: '122', peripheral: SEMC, signal: 'DATA, 10', pin_signal: GPIO_EMC_34, identifier: SEMC_D10}
+  - {pin_num: '121', peripheral: SEMC, signal: 'DATA, 11', pin_signal: GPIO_EMC_35, identifier: SEMC_D11}
+  - {pin_num: '123', peripheral: SEMC, signal: 'DATA, 09', pin_signal: GPIO_EMC_33, identifier: SEMC_D9}
+  - {pin_num: '124', peripheral: SEMC, signal: 'DATA, 08', pin_signal: GPIO_EMC_32, identifier: SEMC_D8}
   - {pin_num: '10', peripheral: SEMC, signal: 'DATA, 07', pin_signal: GPIO_EMC_07}
   - {pin_num: '12', peripheral: SEMC, signal: 'DATA, 06', pin_signal: GPIO_EMC_06}
   - {pin_num: '13', peripheral: SEMC, signal: 'DATA, 05', pin_signal: GPIO_EMC_05}

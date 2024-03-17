@@ -1,0 +1,14 @@
+C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\drivers/fsl_gpio.h:176:24:GPIO_PinRead	16	static
+../source/sht30.c:35:25:SHT30_Send_Cmd	32	static
+../source/sht30.c:69:6:SHT30_reset	8	static
+../source/sht30.c:80:9:SHT30_Init	8	static
+../source/sht30.c:89:9:SHT30_Read_Dat	56	static
+../source/sht30.c:120:9:CheckCrc8	24	static
+../source/sht30.c:155:9:SHT30_Dat_To_Float	32	static
+../source/sht30.c:175:6:scl	16	static
+../source/sht30.c:185:6:sda	16	static
+../source/sht30.c:195:9:sda_read	8	static
+../source/sht30.c:209:6:myi2c_start	8	static
+../source/sht30.c:222:6:myi2c_stop	8	static
+../source/sht30.c:235:6:myi2c_write	24	static
+../source/sht30.c:268:9:myi2c_read	32	static

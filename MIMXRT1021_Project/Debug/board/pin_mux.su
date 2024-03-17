@@ -3,10 +3,10 @@ C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test
 C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\drivers/fsl_clock.h:1315:20:CLOCK_EnableClock	16	static
 C:\Users\86135\Documents\MCUXpressoIDE_11.9.0_2144\workspace\MIMXRT1021_I2C_Test\drivers/fsl_iomuxc.h:859:20:IOMUXC_SetPinMux	24	static
 ../board/pin_mux.c:173:6:BOARD_InitBootPins	8	static
-../board/pin_mux.c:209:6:BOARD_InitPins	48	static
-../board/pin_mux.c:320:6:BOARD_InitDEBUG_UARTPins	16	static
-../board/pin_mux.c:381:6:BOARD_InitSDRAMPins	16	static
-../board/pin_mux.c:442:6:BOARD_InitCANPins	16	static
-../board/pin_mux.c:475:6:BOARD_InitENETPins	16	static
-../board/pin_mux.c:513:6:BOARD_InitUSDHCPins	16	static
-../board/pin_mux.c:545:6:BOARD_InitQSPIPins	16	static
+../board/pin_mux.c:209:6:BOARD_InitPins	32	static
+../board/pin_mux.c:284:6:BOARD_InitDEBUG_UARTPins	16	static
+../board/pin_mux.c:345:6:BOARD_InitSDRAMPins	16	static
+../board/pin_mux.c:406:6:BOARD_InitCANPins	16	static
+../board/pin_mux.c:439:6:BOARD_InitENETPins	16	static
+../board/pin_mux.c:477:6:BOARD_InitUSDHCPins	16	static
+../board/pin_mux.c:509:6:BOARD_InitQSPIPins	16	static
