@@ -10,3 +10,5 @@ try to link the sht30 and the LCD.find some problems existing in GPIO
 add some hardwares and find the driver documents lost
 3/12
 add some functions to sht30.c to supply fot the MCU
+3/16
+finish the main and the lcd function,nearly well done
