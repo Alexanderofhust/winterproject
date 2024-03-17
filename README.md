@@ -1,5 +1,10 @@
 # winterproject
+summary:
+all the functions under the source
 
+
+
+date:
 2/26
 test I2C and change the GitHub code.
 3/5
@@ -12,3 +17,5 @@ add some hardwares and find the driver documents lost
 add some functions to sht30.c to supply fot the MCU
 3/16
 finish the main and the lcd function,nearly well done
+3/17
+well done
